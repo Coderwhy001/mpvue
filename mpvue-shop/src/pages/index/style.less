@@ -1,0 +1,208 @@
+.index{
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  .search{
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 25rpx 0 10rpx;
+      position: fixed;
+      top: 0;
+      z-index: 99;
+      height: 80rpx;
+      display: flex;
+      align-items: center;
+      background: #fff;
+      div:nth-child(1){
+          width: 115rpx;
+          text-align: center;
+          overflow: hidden;
+          word-spacing: nowrap;
+          text-overflow: ellipsis;
+          font-size: 20rpx;
+          padding-right: 15rpx;
+      }
+      div:nth-child(2) {
+          flex: 1;
+          position: relative;
+          input{
+              width: 100%;
+              height: 56rpx;
+              border-radius: 8rpx;
+              background: #ededed;
+              box-sizing: border-box;
+              padding-left: 40rpx;
+          }
+          .icon{
+              position: absolute;
+              top: 15rpx;
+              left: 10rpx;
+              background: url('http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/search2-2fb94833aa.png') center no-repeat;
+              background-size: 100%;
+              width: 28rpx;
+              height: 28rpx;
+              margin-right: 10rpx;
+          }
+      }
+  }
+  .swiper{
+      width: 100%;
+      height: 417rpx;
+      margin-top: 80rpx;
+      .swiper-container{
+          width: 100%;
+          height: 100%;
+          .swiper-item{
+              width: 100%;
+              height: 100%;
+              .slide-image{
+                  width: 100%;
+              }
+          }
+      }
+  }
+  .channel{
+      display: flex;//弹性布局,所有子容器会变成同一行
+      padding: 20rpx 0;
+      background-color: #fff;
+      div{
+          flex: 1;
+          text-align: center;
+          img{
+              height: 58rpx;
+              width: 58rpx;
+              display: inline-block;
+          }
+      }
+  }
+  .brand{
+      width: 100%;
+      margin-top: 20rpx;
+      background-color: #fff;
+      .head{
+          text-align: center;
+          padding: 40rpx 0;//边距 左右上下
+      }
+      .content{
+          width: 730rpx;
+          margin: 0 auto;//左右居中
+          display: flex;//弹性布局
+          justify-content: space-between;//中间隔出来空隙
+          flex-wrap: wrap;
+          div{
+              width: 360rpx;
+              height: 235rpx;
+              margin-bottom: 10rpx;
+              position: relative;
+              div{
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  padding: 10rpx;
+                  .price{
+                      font-size: 24rpx;
+                  }
+              }
+              img{
+                  width: 100%;
+                  height: 100%;
+              }
+          }
+
+      }
+  }
+  .newgoods{
+      width: 100%;
+      &-top{
+          margin-top: 20rpx;
+          height: 260rpx;
+          width: 100%;
+          background: url('../../../static/images/bgnew.png') no-repeat;
+          background-size: 100% 100%;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .top{
+              p{
+                  color: #8c9bae;
+                  font-size: 32rpx;
+              }
+              p:nth-child(2){//第二个p标签
+                width: 180rpx;
+                height: 50rpx;
+                line-height: 50rpx;
+                margin: 27rpx auto 0 auto;
+                font-size: 22rpx;
+                background: #d8e4f0;
+              }
+          }
+      }
+      .list{
+          margin-top: 20rpx;
+          background-color: #fff;
+          padding-bottom: 10rpx;
+          ul{
+              .scroll-view{
+                  width: 100%;
+                  white-space: nowrap;//不换行展示
+                  li{
+                      width: 280rpx;
+                      height: 416rpx;
+                      margin: 5rpx 0 5rpx 25rpx;
+                      display: inline-block;
+                      img{
+                          width: 280rpx;
+                          height: 280rpx;
+                      }
+                      p{
+                          width: 94%;
+                          overflow: hidden; // 超出则隐藏
+                          white-space: nowrap;//不换行展示
+                          text-overflow: ellipsis;//超出则打点
+                          margin-top: 8rpx;
+                          text-indent: 1em;
+                      }
+                      p:nth-child(2) {
+                          font-size: 30rpx;
+                          font-weight: bold;//blod字体粗细:粗体 lighter:细体
+                      }
+                      p:nth-child(3) {
+                          font-size: 24rpx;
+                          color: #8a8a8a;
+                      }
+                      p:nth-child(4) {
+                          font-size: 24rpx;
+                          color: #9c3232;
+                      }
+                  }
+              }
+          }
+      }
+  }
+  .hotgoods{
+      .newgoods-top{
+        background: url('../../../static/images/bgtopic.png') no-repeat;
+        background-size: 100% 100%;
+        .top{
+            p{
+                color: #b1a279;
+                  font-size: 32rpx;
+                  vertical-align: middle;
+                  span{
+                    width: 4rpx;
+                    height: 4rpx;
+                    font-size: 14rpx;
+                    display: inline-block;
+                    vertical-align: middle;//拦腰对其
+                    background-color: #b1a279;
+                }
+            }
+            p:nth-child(2) {
+                background: #f4e9cb;
+                font-size: 22rpx;
+            }
+        }
+      }
+  }
+}
