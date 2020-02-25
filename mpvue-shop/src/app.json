@@ -9,7 +9,8 @@
     "pages/my/main",
     "pages/mappage/main",
     "pages/brandlist/main",
-    "pages/newgoods/main"
+    "pages/newgoods/main",
+    "pages/topicdetail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
