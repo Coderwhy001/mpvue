@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/search/main",
     "pages/index/main",
     "pages/logs/main",
     "pages/counter/main",
@@ -10,8 +11,8 @@
     "pages/mappage/main",
     "pages/brandlist/main",
     "pages/newgoods/main",
-    "pages/topicdetail/main",
-    "pages/search/main"
+    "pages/topicdetail/main"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

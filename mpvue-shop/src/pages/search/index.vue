@@ -39,6 +39,21 @@
               </div>
           </div>
       </div>
+      <!-- 商品列表 -->
+      <div class="goodsList">
+          <div class="sortnav">
+              <div>综合</div>
+              <div class="price">价格</div>
+              <div>分类</div>
+          </div>
+          <div class="sortlist">
+              <div class="item">
+                  <img src="" alt="">
+                  <p class="name">name</p>
+                  <p class="price">￥100</p>
+              </div>
+          </div>
+      </div>
   </div>
 </template>
 
@@ -51,7 +66,8 @@ export default {
             openid: '',
             hotData: [],
             historyData: [],
-            tipsData: []
+            tipsData: [],
+            order: ''
         }
     },
     mounted () {
@@ -94,12 +110,22 @@ export default {
             // console.log(data)
             // 获取历史数据
             this.getHotData() 
+            this.getlistData()
         },
         async getHotData (first) {
             const data = await get('/search/indexaction?openId=' + this.openid)
             this.historyData = data.historyData
             this.hotData = data.hotKeywordList
             // console.log(data)
+        },
+        
+        async getlistData () {
+            // 获取商品列表
+            const data = await get('/search/helperaction', {
+                keyword: this.words,
+                order: this.order
+            })
+            console.log(data)
         }
     }
 }
