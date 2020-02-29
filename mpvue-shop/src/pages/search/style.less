@@ -106,7 +106,7 @@
         .sortnav{
             display: flex;
             width: 100%;
-            height: 778rpx;
+            height: 78rpx;
             line-height: 78rpx;
             background-color: #fff;
             border-bottom: 1rpx solid #d9d9d9;
@@ -161,12 +161,15 @@
                 }
             }
             .item:nth-child(2n) {
-
+                border-right: none;
             }
-            .item.active::nth-last-child(1){
+            .item.active:nth-last-child(1){
                 border-bottom: none;
             }
-            .item.none:last-child(1){
+            .item.active:nth-last-child(2){
+                border-bottom: none;
+            }
+            .item.none:last-child{
                 border-bottom: none;
             }
         }

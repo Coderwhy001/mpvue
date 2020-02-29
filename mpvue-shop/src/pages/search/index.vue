@@ -40,17 +40,17 @@
           </div>
       </div>
       <!-- 商品列表 -->
-      <div class="goodsList">
+      <div class="goodsList" v-if="listData.length!==0">
           <div class="sortnav">
-              <div>综合</div>
-              <div class="price">价格</div>
-              <div>分类</div>
+              <div @click="changeTab(0)" :class="[0 === nowIndex ? 'active' : '']">综合</div>
+              <div @click="changeTab(1)" :class="[1 === nowIndex ? 'active' : '']" class="price">价格</div>
+              <div @click="changeTab(2)" :class="[2 === nowIndex ? 'active' : '']">分类</div>
           </div>
           <div class="sortlist">
-              <div class="item">
-                  <img src="" alt="">
-                  <p class="name">name</p>
-                  <p class="price">￥100</p>
+              <div class="item" v-for="(item, index) in listData" :key="index">
+                  <img :src="item.list_pic_url" alt="">
+                  <p class="name">{{item.name}}</p>
+                  <p class="price">{{item.retail_price}}</p>
               </div>
           </div>
       </div>
@@ -67,7 +67,9 @@ export default {
             hotData: [],
             historyData: [],
             tipsData: [],
-            order: ''
+            order: '',
+            listData: [],
+            nowIndex: 0
         }
     },
     mounted () {
@@ -125,7 +127,17 @@ export default {
                 keyword: this.words,
                 order: this.order
             })
-            console.log(data)
+            this.listData = data.keywords
+            this.tipsData = []
+        },
+        changeTab(index) {
+            this.nowIndex = index
+            if (index === 1) {
+                this.order = this.order == 'asc' ? 'desc' : 'asc'
+            } else {
+                this.order = ''
+            }
+            this.getlistData()
         }
     }
 }
