@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/goods/main",
     "pages/index/main",
     "pages/logs/main",
     "pages/counter/main",
@@ -12,6 +13,7 @@
     "pages/newgoods/main",
     "pages/topicdetail/main",
     "pages/search/main"
+      
     
   ],
   "window": {
