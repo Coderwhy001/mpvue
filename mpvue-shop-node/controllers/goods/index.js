@@ -4,7 +4,7 @@ const { mysql } = require('../../mysql')
 async function detailAction(ctx) {
     const goodsId = ctx.query.id
     const openId = ctx.query.openId
-    console.log(goodsId)
+    // console.log(goodsId)
     // 商品信息获取
     const info = await mysql('nideshop_goods').where({
         'id': goodsId
@@ -12,9 +12,9 @@ async function detailAction(ctx) {
     // 获取商品的图片
     const gallery = await mysql('nideshop_goods_gallery').where({
         'goods_id': goodsId
-    })
+    }).select()
     ctx.body = {
-        'info': info,
+        'info': info[0] || [],
         'gallery': gallery
         
     }
