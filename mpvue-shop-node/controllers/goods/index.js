@@ -13,9 +13,16 @@ async function detailAction(ctx) {
     const gallery = await mysql('nideshop_goods_gallery').where({
         'goods_id': goodsId
     }).select()
+
+    // 商品参数
+    // 关联查询两张表leftJoin
+    const attribute = await mysql('nideshop_goods_attribute').column('nideshop_goods_attribute.value', 'nideshop_attribute.name').leftJoin('nideshop_attribute', 'nideshop_goods_attribute.attribute_id', 'nideshop_attribute.id').where({
+        'nideshop_goods_attribute.goods_id': goodsId
+    }).select()
     ctx.body = {
         'info': info[0] || [],
-        'gallery': gallery
+        'gallery': gallery,
+        'attribute': attribute
         
     }
 }

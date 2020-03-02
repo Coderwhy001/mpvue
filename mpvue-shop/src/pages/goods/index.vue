@@ -29,13 +29,57 @@
           <div>请选择规格数量</div>
           <div></div>
       </div>
-      <!-- 选择规格的弹出层 -->
-      
+
+      <!-- 商品参数 -->
+      <div class="attribute">
+          <div class="head">
+              商品参数
+          </div>
+          <div class="item" v-for="(item, index) in attribute" :key="index">
+              <div>{{item.name}}</div>
+              <div>{{item.value}}</div>
+          </div>
+      </div>
+
+      <!-- 图片展示 -->
+
+      <div class="detail" v-if="goods_desc">
+          <wxParse :content="goods_desc"/>
+      </div>
+
+
+      <!-- 选择规格的弹出层  -->
+      <!-- showpop默认为false所以pop默认不显示发生点击事件改变showpop的值才会显示样式和弹出层 -->
+      <div class="pop" v-show="showpop">
+          <div class="attr-pop" :class="[showpop ? 'fadeup' : 'fadedown']" >
+              <div class="top">
+                  <div class="left">
+                      <img :src="info.primary_pic_url" alt="">
+                  </div>
+                  <div class="right">
+                      <div>
+                          <p>价格￥{{info.retail_price}}</p>
+                          <p>请选择数量</p>
+                      </div>
+                  </div>
+                  <div class="close" @click="showType">×</div>
+              </div>
+              <div class="b">
+                  <p>数量</p>
+                  <div class="count">
+                      <div class="cut" @click="reduce">-</div>
+                      <input type="text" class="number" v-model="number" disabled="false">
+                      <div class="add" @click="add">+</div>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
 </template>
 
 <script>
 import { get, post } from '../../utils'
+import wxParse from 'mpvue-wxparse'
 // hover-class是手机屏幕的高亮显示，一般要被干掉 open-type是必须的，可以使小程序触发分享功能
 // swiper中interval为播放间隔时间，duration为持续时间 
 export default {
@@ -46,8 +90,14 @@ export default {
             openId: '',
             info: {},
             brand: {},
-            showpop:false
+            showpop:false,
+            number: 0,
+            attribute: [],
+            goods_desc: ''
         }
+    },
+    components: {
+        wxParse
     },
     // 商品分享
     onShareAppMessage() {
@@ -71,14 +121,27 @@ export default {
             console.log(data)
             this.info = data.info
             this.gallery = data.gallery
+            this.attribute = data.attribute
+            this.goods_desc = data.info.goods_desc
         },
         showType () {
             this.showpop = !this.showpop // 点击一下出现 再点一下消失
+        },
+        add () {
+            this.number += 1
+        },
+        reduce() {
+            if (this.number > 1) {
+                this.number -= 1
+            } else {
+                // return false
+            }
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
+@import url('~mpvue-wxparse/src/wxParse.css');
 @import './style.less';
 </style>
