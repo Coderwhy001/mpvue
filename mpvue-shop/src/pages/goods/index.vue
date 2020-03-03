@@ -47,7 +47,50 @@
           <wxParse :content="goods_desc"/>
       </div>
 
+      <!-- 常见问题 -->
+      <div class="common-problem">
+          <div class="h">
+              <text class="title">常见问题</text>
+          </div>
+          <div class="b">
+              <div class="item" v-for="(item, index) in issueList" :key="index">
+                  <div class="question-box">
+                      <text class="spot"></text>
+                      <text class="question">{{item.question}}</text>
+                  </div>
+                  <div class="answer">{{item.answer}}</div>
+              </div>
+          </div>
+      </div>
 
+      <div class="common-problem">
+          <div class="h">
+              <text class="title">大家都在看</text>
+          </div>
+          <div class="sublist">
+              <div class="item" v-for="(subitem, index) in productList" :key="index">
+                  <img :src="subitem.list_pic_url" alt="">
+                  <p>{{subitem.name}}</p>
+                  <p>￥{{subitem.retail_price}}</p>
+              </div>
+          </div>
+      </div>
+
+      <!-- footer -->
+
+      <div class="bottom-fixed">
+          <div class="collect-box">
+              <div class="collect"></div>
+          </div>
+          <div class="car-box">
+              <div class="car">
+                  <span>3</span>
+                  <img src="/static/images/ic_menu_shoping_nor.png" alt="">
+              </div>
+          </div>
+          <div>立即购买</div>
+          <div>加入购物车</div>
+      </div>
       <!-- 选择规格的弹出层  -->
       <!-- showpop默认为false所以pop默认不显示发生点击事件改变showpop的值才会显示样式和弹出层 -->
       <div class="pop" v-show="showpop">
@@ -93,7 +136,9 @@ export default {
             showpop:false,
             number: 0,
             attribute: [],
-            goods_desc: ''
+            goods_desc: '',
+            issueList: [], // 常见问题
+            productList: []
         }
     },
     components: {
@@ -123,6 +168,8 @@ export default {
             this.gallery = data.gallery
             this.attribute = data.attribute
             this.goods_desc = data.info.goods_desc
+            this.issueList = data.issue
+            this.productList = data.productList
         },
         showType () {
             this.showpop = !this.showpop // 点击一下出现 再点一下消失
