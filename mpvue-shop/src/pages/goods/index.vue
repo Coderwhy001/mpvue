@@ -79,17 +79,17 @@
       <!-- footer -->
 
       <div class="bottom-fixed">
-          <div class="collect-box">
-              <div class="collect"></div>
+          <div class="collect-box" @click="collect">
+              <div class="collect" :class="[collectFlag ? 'active' : '']"></div>
           </div>
           <div class="car-box">
-              <div class="car">
-                  <span>3</span>
+              <div class="car" @click="toCart">
+                  <span>{{allnumber}}</span>
                   <img src="/static/images/ic_menu_shoping_nor.png" alt="">
               </div>
           </div>
-          <div>立即购买</div>
-          <div>加入购物车</div>
+          <div @click="buy">立即购买</div>
+          <div @click="addCart">加入购物车</div>
       </div>
       <!-- 选择规格的弹出层  -->
       <!-- showpop默认为false所以pop默认不显示发生点击事件改变showpop的值才会显示样式和弹出层 -->
@@ -138,7 +138,11 @@ export default {
             attribute: [],
             goods_desc: '',
             issueList: [], // 常见问题
-            productList: []
+            productList: [],
+            collectFlag: false,
+            goodsId: '',
+            allnumber: 0,
+            allPrice: ''
         }
     },
     components: {
@@ -170,6 +174,10 @@ export default {
             this.goods_desc = data.info.goods_desc
             this.issueList = data.issue
             this.productList = data.productList
+            this.goodsId = data.info.id
+            this.collectFlag = data.collected
+            this.allnumber = data.allnumber
+            this.allPrice = data.info.retail_price
         },
         showType () {
             this.showpop = !this.showpop // 点击一下出现 再点一下消失
@@ -183,6 +191,47 @@ export default {
             } else {
                 // return false
             }
+        },
+        async collect () {
+            this.collectFlag = !this.collectFlag
+            const data = await post('/collect/addcollect', {
+                openId: this.openId,
+                goodsId: this.goodsId,
+            })
+        },
+        toCart () {
+            wx.switchTab({
+                url: '/pages/cart/main'
+            })
+        },
+        async buy () {
+            if (this.showpop) {
+                if (this.number === 0) {
+                    wx.showToast({
+                        title: '请选择商品数量',
+                        duration: 2000,
+                        icon: 'none',
+                        mask: true, //遮罩层
+                        success: res => {}
+                    })
+                    return false
+                }
+                const data = await post('/order/submitAction', {
+                    goodsId: this.goodsId,
+                    openId: this.openId,
+                    allPrice: this.allPrice
+                })
+                if (data) {
+                    wx.navigateTo({
+                        url: '/pages/order/main'
+                    });
+                }
+            } else {
+                this.showpop = true
+            }
+        },
+        addCart () {
+            
         }
     }
 }

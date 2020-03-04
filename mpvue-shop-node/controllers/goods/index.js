@@ -27,12 +27,37 @@ async function detailAction(ctx) {
     const productList = await mysql('nideshop_goods').where({
         'category_id': info[0].category_id
     }).select()
+
+    //判断是否收藏过
+    const iscollect = await mysql('nideshop_collect').where({
+        'user_id': openId,
+        'value_id': goodsId
+      }).select()
+      let collected = false
+      if (iscollect.length > 0) {
+        collected = true
+      }
+
+      // 判断该用户是否的购物车里是否含有此物品
+      const oldNumber = await mysql('nideshop_cart').where({
+          'user_id': openId
+      }).column('number').select()
+      let allnumber = 0
+    //   console.log(oldNumber)
+      if (oldNumber.length > 0) {
+          for (let i = 0; i < oldNumber.length; i++){
+              const element = oldNumber[i]
+              allnumber += element.number
+          }
+      }
     ctx.body = {
         'info': info[0] || [],
         'gallery': gallery,
         'attribute': attribute,
         'issue': issue,
-        'productList': productList
+        'productList': productList,
+        'collected': collected,
+        'allnumber': allnumber
     }
 }
 module.exports = {
