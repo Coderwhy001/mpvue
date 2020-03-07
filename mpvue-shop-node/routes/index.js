@@ -19,6 +19,7 @@ router.get('/goods/detailaction', controllers.goods.index.detailAction)
 router.post('/collect/addcollect', controllers.collect.index.addCollect)
 
 router.post('/order/submitAction', controllers.order.index.submitAction)
+router.get('/order/detailAction', controllers.order.index.detailAction)
 
 // 购物车相关的接口
 router.post('cart/addCart', controllers.cart.index.addCart)
