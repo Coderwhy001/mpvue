@@ -12,6 +12,6 @@ async function getListAction(ctx) {
 }
 
 
-module.export = {
+module.exports = {
     getListAction
 }

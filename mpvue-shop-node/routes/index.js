@@ -25,5 +25,5 @@ router.get('/order/detailAction', controllers.order.index.detailAction)
 router.post('cart/addCart', controllers.cart.index.addCart)
 
 // 地址相关的接口
-router.get('/address/getListAction', controller.address.index.getListAction)
+router.get('/address/getListAction', controllers.address.index.getListAction)
 module.exports = router

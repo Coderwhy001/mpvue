@@ -2,17 +2,17 @@
   <div class="address">
     <scroll-view scroll-y="true" class="addcont" style="height: 100%">
         <div class="item" v-if="listData.length !== 0">
-            <div class="list">
+            <div class="list" v-for="(item, index) in listData" :key="index">
                 <div class="addresslist">
                     <div>
-                        <span>name</span>
-                        <div class="moren">默认</div>
+                        <span>{{item.name}}</span>
+                        <div class="moren" v-if="item.is_default === 1">默认</div>
                     </div>
                     <div class="info">
-                        <p>mobile</p>
-                        <p>address</p>
+                        <p>{{item.mobile}}</p>
+                        <p>{{item.address+item.address_detail}}</p>
                     </div>
-                    <div @click="toDetail"></div>
+                    <div @click="toDetail(item.id)"></div>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
         </div>
     </scroll-view>
     <div class="bottom" >
-        <div @click="wxaddress(1)">+新建按钮</div>
+        <div @click="wxaddress(1)">+新建地址</div>
         <div @click="wxaddress">一键导入微信地址</div>
     </div>
   </div>
@@ -37,12 +37,30 @@ export default {
         }
     },
     onShow() {
-        this.openId = getStorageOpenid()
+        this.openId = getStorageOpenid(),
+        this.getAddressList()
     },
     methods: {
-        toDetail () {},
-        wxaddress (e) {
-    
+        toDetail (id) {
+            wx.navigateTo({
+                url: "/pages/addaddress/main?id" + id
+            })
+        },
+        wxaddress (index) {
+            if (index === 1) {
+                wx.navigateTo({
+                    url: "/pages/addaddress/main"
+                })
+            } else {
+                wx.chooseAddress({
+                    success: function(res) {
+                        let result = encodeURIComponent(JSON.stringify(res))
+                        wx.navigateTo({
+                            url: "/pages/addaddress/main?res=" + result
+                        })
+                    }
+                })
+            }
         },
         async getAddressList () {
             let _this = this
@@ -50,6 +68,7 @@ export default {
                 openId: _this.openId
             })
             console.log(data)
+            _this.listData = data.data
         }
     }
 }
