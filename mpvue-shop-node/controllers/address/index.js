@@ -11,7 +11,17 @@ async function getListAction(ctx) {
     }
 }
 
-
+// 获取详细地址
+async function detailAction(ctx) {
+    const id = ctx.query.id
+    const detailData = await mysql('nideshop_address').where({
+        'id': id
+    }).select()
+    ctx.body = {
+        data: detailData[0]
+    }
+}
 module.exports = {
-    getListAction
+    getListAction,
+    detailAction
 }

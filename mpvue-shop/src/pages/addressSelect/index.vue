@@ -8,7 +8,7 @@
                         <span>{{item.name}}</span>
                         <div class="moren" v-if="item.is_default === 1">默认</div>
                     </div>
-                    <div class="info">
+                    <div class="info" @click="selAddress(item.id)">
                         <p>{{item.mobile}}</p>
                         <p>{{item.address+item.address_detail}}</p>
                     </div>
@@ -43,7 +43,7 @@ export default {
     methods: {
         toDetail (id) {
             wx.navigateTo({
-                url: "/pages/addaddress/main?id" + id
+                url: "/pages/addaddress/main?id=" + id
             })
         },
         wxaddress (index) {
@@ -67,8 +67,14 @@ export default {
             const data = await get('/address/getListAction', {
                 openId: _this.openId
             })
-            console.log(data)
+            // console.log(data)
             _this.listData = data.data
+        },
+        selAddress (id) {
+            wx.getStorageSync('addressId', id)
+            wx.navigateBack({
+                delta: 1
+            })
         }
     }
 }
