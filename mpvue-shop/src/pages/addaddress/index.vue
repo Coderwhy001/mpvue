@@ -8,7 +8,7 @@
     </div>
     <div class="item">
       <picker mode="region" @change="bindRegionChange" :value="region" :custom-item="customItem">
-        <input type="text" placeholder="身份, 城市, 区县" v-model="address">
+        <input type="text" placeholder="身份、 城市、 区县" v-model="address">
       </picker>
     </div>
     <div class="item">
@@ -16,7 +16,7 @@
     </div>
 
     <div class="item itemend">
-      <checkbox-group @click="checkboxChange">
+      <checkbox-group @change="checkboxChange">
         <label class="checkbox">
           <checkbox class="box" value="true" :checked="checked" color="#b4282d">
           </checkbox>
@@ -63,11 +63,26 @@ export default {
     }
   },
   methods: {
-    checkboxChange() {
+    checkboxChange(e) {
+      this.checked = e.mp.detail.value[0]
     },
     wxaddress() {
+      wx.chooseAddress({
+        success: (result) => {
+          this.userName = result.userName
+          this.telNumber = result.telNumber
+          this.address = `${this.res.provinceName} ${this.res.cityName} ${this.res.countyName}`
+          this.detailaddress = result.detailInfo
+          this
+        }
+      })
     },
     saveAddress() {
+    },
+    bindRegionChange(e) {
+      console.log(e)
+      let value = e.mp.detail.value
+      this.address = `${value[0]} ${value[1]} ${value[2]}`
     },
     async getDetail() {
       const data = await get('/address/detailAction', {
@@ -82,7 +97,31 @@ export default {
       this.checked = detail.is_default === 1 ? true : false
     },
     async saveAddress () {
-
+      const data = await post('/address/saveAction', {
+        userName: this.userName,
+        telNumber: this.telNumber,
+        address: this.address,
+        detailaddress: this.detailaddress,
+        checked: this.checked,
+        openId: this.openId,
+        addressId: this.id
+      })
+      console.log(data)
+      if (data.data) {
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success',
+          duration: 2000,
+          mask: true,
+          success: (result) => {
+            setTimeout(() => {
+              wx.navigateBack({
+              delta: 1
+            })
+            }, 2000)
+          }
+        })
+      }
     }
   }
 }
