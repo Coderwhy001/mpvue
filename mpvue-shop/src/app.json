@@ -1,7 +1,5 @@
 {
   "pages": [
-    "pages/addressSelect/main",
-    "pages/order/main",
     "pages/index/main",
     "pages/logs/main",
     "pages/counter/main",
@@ -15,7 +13,9 @@
     "pages/topicdetail/main",
     "pages/search/main",
     "pages/goods/main",
-    "pages/addaddress/main"
+    "pages/addaddress/main",
+    "pages/addressSelect/main",
+    "pages/order/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
