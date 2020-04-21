@@ -15,7 +15,8 @@
     "pages/goods/main",
     "pages/addaddress/main",
     "pages/addressSelect/main",
-    "pages/order/main"
+    "pages/order/main",
+    "pages/categroyList/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
