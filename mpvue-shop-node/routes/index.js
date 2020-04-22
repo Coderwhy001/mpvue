@@ -35,4 +35,8 @@ router.get('/cart/cartList', controllers.cart.index.cartList)
 router.get('/address/getListAction', controllers.address.index.getListAction)
 router.get('/address/detailAction', controllers.address.index.detailAction)
 router.post('/address/saveAction', controllers.address.index.saveAction)
+
+// 专题接口
+router.get('/topic/listaction', controllers.topic.index.listAction)
+router.get('/topic/detailaction', controllers.topic.index.detailAction)
 module.exports = router
