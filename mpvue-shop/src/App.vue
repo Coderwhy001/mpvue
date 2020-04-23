@@ -3,7 +3,7 @@ export default {
   created () {
      var userInfo = {
       openId: "oQmbb4sNZdxaUQZ0sfYgvtOP2S7c",
-      nickName: "蜗牛",
+      nickName: "西泽",
       gender: 1,
       language: "zh_CN",
       city: "Changping",
